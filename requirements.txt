@@ -1,4 +1,7 @@
 
 pandas
-matplotlib==3.8.4
+matplotlib
 numpy
+pycoingecko
+requests
+bs4
