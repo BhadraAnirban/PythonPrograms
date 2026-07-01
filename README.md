@@ -1,4 +1,8 @@
 
+
+
+
+
 …or create a new repository on the command line
 echo "# PythonPrograms" >> README.md
 git init
@@ -14,3 +18,7 @@ git push -u origin main
 git remote add origin https://github.com/BhadraAnirban/PythonPrograms.git
 git branch -M main
 git push -u origin main
+
+
+Execute below line after pull the project first time from github in your system-
+pip install -r requirements.txt

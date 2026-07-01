@@ -5,3 +5,4 @@ numpy
 pycoingecko
 requests
 bs4
+Flask
