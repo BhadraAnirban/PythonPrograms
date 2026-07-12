@@ -1,4 +1,30 @@
-# ** LangChain Libraries Used — Sequential Flow **
+# LangChain Libraries Used — Sequential Flow 
+
+## Import Statements
+
+**worker.py**
+```python
+from langchain_core.prompts import PromptTemplate
+from langchain.chains import RetrievalQA
+from langchain_community.embeddings import HuggingFaceInstructEmbeddings, HuggingFaceEmbeddings
+from langchain_community.document_loaders import PyPDFLoader
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_community.vectorstores import Chroma
+from langchain_ibm import WatsonxLLM
+```
+
+**ServerHuggingFace.py**
+```python
+from langchain.chains import RetrievalQA
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_community.document_loaders import PyPDFLoader
+from langchain_community.vectorstores import Chroma
+from langchain_huggingface import HuggingFaceEndpoint, HuggingFaceEmbeddings, ChatHuggingFace
+```
+
+> **Key difference:** `worker.py` uses `langchain_ibm` (WatsonxLLM) as the LLM backend, while `ServerHuggingFace.py` uses `langchain_huggingface` (HuggingFaceEndpoint + ChatHuggingFace).
+
+---
 
 **1. PyPDFLoader (langchain_community)**
 
