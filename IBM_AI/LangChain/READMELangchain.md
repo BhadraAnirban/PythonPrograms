@@ -10,11 +10,11 @@ loader = PyPDFLoader(document_path)
 documents = loader.load()
 ```
 
-Loads the uploaded PDF file and converts it into a list of Document objects — the entry point for your data.
+
 
 2. RecursiveCharacterTextSplitter (langchain)
 
-Splits large documents into smaller chunks (1024 chars, 64 overlap). Ensures the LLM receives focused, digestible context rather than an entire document at once.
+Splits the loaded document into smaller text chunks (1024 chars, 64 overlap). These chunks are passed to Chroma in the next step where they get converted into vectors.
 
 worker.py & ServerHuggingFace.py:
 ```
@@ -22,11 +22,10 @@ text_splitter = RecursiveCharacterTextSplitter(chunk_size=1024, chunk_overlap=64
 texts = text_splitter.split_documents(documents)
 ```
 
-Splits large documents into smaller chunks (1024 chars, 64 overlap). Ensures the LLM receives focused, digestible context rather than an entire document at once.
 
 3. HuggingFaceEmbeddings (langchain_huggingface)
 
-Converts each text chunk into a numeric vector using all-MiniLM-L6-v2. Enables semantic similarity search — finding chunks by meaning, not just keywords.
+Initializes the embedding model instance using all-MiniLM-L6-v2. No conversion happens here — this simply loads the model into memory so it is ready to be used by Chroma in the next step.
 
 worker.py:
 
@@ -47,11 +46,11 @@ embeddings = HuggingFaceEmbeddings(
 )
 ```
 
-Converts each text chunk into a numeric vector using all-MiniLM-L6-v2. Enables semantic similarity search — finding chunks by meaning, not just keywords.
+
 
 4. Chroma (langchain_community)
 
-Stores all the vectors in an in-memory vector database and exposes a retriever. When a question is asked, it fetches the most relevant chunks to pass to the LLM.
+Calls the embedding model (from point 3) to convert each text chunk into a numeric vector, then stores all vectors in an in-memory vector database. Exposes a retriever that fetches the most semantically relevant chunks when a question is asked.
 
 worker.py:
 ```
@@ -65,7 +64,7 @@ db = Chroma.from_documents(texts, embedding=embeddings)
 retriever=db.as_retriever(search_kwargs={"k": 3})
 ```
 
-Stores all the vectors in an in-memory vector database and exposes a retriever. When a question is asked, it fetches the most relevant chunks to pass to the LLM.
+
 
 5. HuggingFaceEndpoint + ChatHuggingFace (langchain_huggingface)
 
@@ -83,7 +82,7 @@ base_llm = HuggingFaceEndpoint(
 llm_hub = ChatHuggingFace(llm=base_llm)
 ```
 
-HuggingFaceEndpoint connects to the hosted Llama model via the HuggingFace Inference API. ChatHuggingFace wraps it to support the chat message format expected by the chain.
+
 
 6. RetrievalQA (langchain)
 
@@ -113,5 +112,5 @@ conversation_retrieval_chain = RetrievalQA.from_chain_type(
 output = conversation_retrieval_chain.invoke({"question": prompt, "chat_history": chat_history})
 ```
 
-The orchestrator — ties everything together. On each question, it retrieves relevant chunks from Chroma and feeds them alongside the question to the LLM, producing a grounded answer.
+
 
