@@ -4,7 +4,7 @@
 
 **worker.py**
 ```python
-from langchain_core.prompts import PromptTemplate
+from langchain_core.prompts import PromptTemplate  # imported but unused — PromptTemplate is not used in the chain
 from langchain.chains import RetrievalQA
 from langchain_community.embeddings import HuggingFaceInstructEmbeddings, HuggingFaceEmbeddings
 from langchain_community.document_loaders import PyPDFLoader
@@ -22,7 +22,7 @@ from langchain_community.vectorstores import Chroma
 from langchain_huggingface import HuggingFaceEndpoint, HuggingFaceEmbeddings, ChatHuggingFace
 ```
 
-> **Key difference:** `worker.py` uses `langchain_ibm` (WatsonxLLM) as the LLM backend, while `ServerHuggingFace.py` uses `langchain_huggingface` (HuggingFaceEndpoint + ChatHuggingFace).
+> **Key difference:** `worker.py` uses `langchain_ibm` (WatsonxLLM) as the LLM backend, while `ServerHuggingFace.py` uses `langchain_huggingface` (HuggingFaceEndpoint + ChatHuggingFace). `ServerHuggingFace.py` does not import `PromptTemplate` as `RetrievalQA` uses its built-in default prompt.
 
 ---
 
