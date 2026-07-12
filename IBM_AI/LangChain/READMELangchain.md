@@ -22,7 +22,11 @@ from langchain_community.vectorstores import Chroma
 from langchain_huggingface import HuggingFaceEndpoint, HuggingFaceEmbeddings, ChatHuggingFace
 ```
 
-> **Key difference:** `worker.py` uses `langchain_ibm` (WatsonxLLM) as the LLM backend, while `ServerHuggingFace.py` uses `langchain_huggingface` (HuggingFaceEndpoint + ChatHuggingFace). `ServerHuggingFace.py` does not import `PromptTemplate` as `RetrievalQA` uses its built-in default prompt.
+> **Key difference:** `worker.py` uses `langchain_ibm` (WatsonxLLM) as the LLM backend, while `ServerHuggingFace.py` uses `langchain_huggingface` (HuggingFaceEndpoint + ChatHuggingFace). 
+
+`ServerHuggingFace.py` does not import `PromptTemplate` as `RetrievalQA` uses its built-in default prompt.
+
+In the RetrievalQA chain (the chain_type_kwargs={"prompt": prompt} line in worker.py is commented out).
 
 ---
 
