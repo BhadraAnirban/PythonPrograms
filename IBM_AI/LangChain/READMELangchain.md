@@ -1,4 +1,4 @@
-*LangChain Libraries Used — Sequential Flow
+LangChain Libraries Used — Sequential Flow
 
 **1. PyPDFLoader (langchain_community)**
 
