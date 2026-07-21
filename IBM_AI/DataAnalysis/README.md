@@ -146,3 +146,14 @@ Seaborn
 
 Purpose: Statistical data visualization.
  Built on top of Matplotlib, Seaborn provides attractive and informative visualizations with less code. It is particularly useful for creating heatmaps, distribution plots, box plots, and correlation analysis charts.
+
+
+ **Normalization** is the process of transforming values of several variables into a similar range. Typical normalizations include
+
+scaling the variable so the variable average is 0
+scaling the variable so the variance is 1
+scaling the variable so the variable values range from 0 to 1
+
+# replace (original value) by (original value)/(maximum value)
+df['length'] = df['length']/df['length'].max()
+df['width'] = df['width']/df['width'].max()
